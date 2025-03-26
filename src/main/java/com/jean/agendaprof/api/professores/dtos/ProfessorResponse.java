@@ -25,8 +25,6 @@ public class ProfessorResponse {
 
     private String fotoPerfil;
 
-    private String password;
-
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
