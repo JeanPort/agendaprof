@@ -1,0 +1,12 @@
+server:
+  port: ${AGENDAPROF_PORT}
+spring:
+  datasource:
+    url: jdbc:mysql://${AGENDAPROF_DB_HOST}:${AGENDAPROF_DB_PORT}/${AGENDAPROF_DB_NAME}?useSSL=false&serverTimeZone=UTC
+    username: ${AGENDAPROF_DB_USER}
+    password: ${AGENDAPROF_DB_PASSWORD}
+
+  jpa:
+    show-sql: false
+    properties:
+      "[format_sql]": false

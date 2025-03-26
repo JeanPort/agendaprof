@@ -1,0 +1,14 @@
+
+spring:
+  application:
+    name: agendaprof
+  flyway:
+    enabled: true
+  web:
+    locale: pt_BR
+  profiles:
+    active:
+      - ${AGENDAPROF_PROFILE:dev}
+  jpa:
+    hibernate:
+      ddl-auto: none
