@@ -7,4 +7,5 @@ import java.util.List;
 public interface ProfessorService {
 
     List<ProfessorResponse> findAll(String q);
+    ProfessorResponse findById(Long id);
 }
