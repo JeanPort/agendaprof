@@ -1,4 +1,4 @@
-package com.jean.agendaprof.api.alunos.service;
+package com.jean.agendaprof.api.alunos.services;
 
 import com.jean.agendaprof.api.alunos.dtos.AlunoRequest;
 import com.jean.agendaprof.api.alunos.dtos.AlunoResponse;
