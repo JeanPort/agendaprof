@@ -25,10 +25,9 @@ public class AlunoServiceImpl implements AlunoService{
         emailValidator(alunoRequest.getEmail());
         var aluno = alunoMapper.toAluno(alunoRequest);
         aluno.setProfessor(professor);
+        aluno = alunoRepository.save(aluno);
 
-        var alunoCadastrado = alunoRepository.save(aluno);
-
-        return alunoMapper.toAlunoResponse(alunoCadastrado);
+        return alunoMapper.toAlunoResponse(aluno);
     }
 
     private void emailValidator(String email) {
