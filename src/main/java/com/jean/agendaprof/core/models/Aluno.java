@@ -18,8 +18,8 @@ public class Aluno extends Auditable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "nome")
+    private String nome;
     @Column(name = "email")
     private String email;
     @Column(name = "data_aula")

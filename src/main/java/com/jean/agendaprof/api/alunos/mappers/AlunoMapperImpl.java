@@ -15,7 +15,7 @@ public class AlunoMapperImpl implements AlunoMapper {
 
         return Aluno.builder()
                 .email(alunoRequest.getEmail())
-                .name(alunoRequest.getNome())
+                .nome(alunoRequest.getNome())
                 .dataAula(alunoRequest.getDataAula())
                 .build();
     }
@@ -27,7 +27,7 @@ public class AlunoMapperImpl implements AlunoMapper {
         return AlunoResponse.builder()
                 .id(aluno.getId())
                 .email(aluno.getEmail())
-                .nome(aluno.getName())
+                .nome(aluno.getNome())
                 .dataAula(aluno.getDataAula())
                 .createdAt(aluno.getCreatedAt())
                 .updatedAt(aluno.getUpdatedAt())
