@@ -31,7 +31,7 @@ public class Professor extends Auditable{
     private BigDecimal valorHora;
     @Column(name = "foto_perfil")
     private String fotoPerfil;
-    @Column(name = "password")
-    private String password;
+    @Column(name = "senha")
+    private String senha;
 
 }

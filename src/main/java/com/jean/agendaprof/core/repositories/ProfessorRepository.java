@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
-    List<Professor> findAllByDescriptionContaining(String q);
+    List<Professor> findAllByDescricaoContaining(String q);
 }

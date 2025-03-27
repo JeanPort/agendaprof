@@ -17,7 +17,7 @@ public class ProfessorServiceImpl implements ProfessorService{
 
     @Override
     public List<ProfessorResponse> findAll(String q) {
-        var professores = professorRepository.findAllByDescriptionContaining(q);
+        var professores = professorRepository.findAllByDescricaoContaining(q);
         return professores.stream().map(professorMapper::toProfessorResponse).toList();
     }
 }
