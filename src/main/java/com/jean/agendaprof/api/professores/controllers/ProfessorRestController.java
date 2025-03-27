@@ -1,5 +1,6 @@
 package com.jean.agendaprof.api.professores.controllers;
 
+import com.jean.agendaprof.api.common.routes.ApiRoutes;
 import com.jean.agendaprof.api.professores.dtos.ProfessorResponse;
 import com.jean.agendaprof.api.professores.services.ProfessorService;
 import lombok.Getter;
@@ -14,12 +15,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/professores")
 public class ProfessorRestController {
 
     private final ProfessorService professorService;
 
-    @GetMapping
+    @GetMapping(ApiRoutes.BUSCAR_PROFESSORES)
     public ResponseEntity<List<ProfessorResponse>> findAll(@RequestParam(name = "q", defaultValue = "", required = false) String q){
         var list = professorService.findAll(q);
         return ResponseEntity.ok(list);
