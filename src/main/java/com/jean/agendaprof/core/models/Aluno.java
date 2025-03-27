@@ -24,8 +24,8 @@ public class Aluno extends Auditable{
     private String email;
     @Column(name = "data_aula")
     private LocalDateTime dataAula;
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professor_id")
+    private Professor professor;
 }
