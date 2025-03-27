@@ -3,7 +3,9 @@ package com.jean.agendaprof.api.alunos.mappers;
 import com.jean.agendaprof.api.alunos.dtos.AlunoRequest;
 import com.jean.agendaprof.api.alunos.dtos.AlunoResponse;
 import com.jean.agendaprof.core.models.Aluno;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AlunoMapperImpl implements AlunoMapper {
 
 
