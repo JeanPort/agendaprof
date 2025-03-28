@@ -1,5 +1,6 @@
 package com.jean.agendaprof.api.common.handlers;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.jean.agendaprof.api.common.dtos.ErrorResponse;
 import com.jean.agendaprof.api.common.dtos.ErrorValidationResponse;
 import com.jean.agendaprof.core.exceptions.EmailAlreadyInUseException;
@@ -16,6 +17,8 @@ import java.util.*;
 
 @RestControllerAdvice
 public class RestControllerExceptionHandler {
+
+    private final PropertyNamingStrategies.SnakeCaseStrategy snakeCaseStrategy = new PropertyNamingStrategies.SnakeCaseStrategy();
 
     @ExceptionHandler(ModelNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleModelNotFoundException(ModelNotFoundException e){
@@ -62,15 +65,16 @@ public class RestControllerExceptionHandler {
 
     private Map<String, List<String>> getErrors(List<FieldError> fieldErrors) {
         var errors = new HashMap<String, List<String>>();
-        for (var field : fieldErrors){
-            if (!errors.containsKey(field.getField())){
-                var list = new ArrayList<String>();
-                list.add(field.getDefaultMessage());
-                errors.put(field.getField(), list);
+        fieldErrors.forEach(fieldError -> {
+            var fieldName = snakeCaseStrategy.translate(fieldError.getField());
+            var fieldMessage = fieldError.getDefaultMessage();
+
+            if (errors.containsKey(fieldName)){
+                errors.get(fieldName).add(fieldMessage);
             }else {
-                errors.get(field.getField()).add(field.getDefaultMessage());
+                errors.put(fieldName, new ArrayList<String>(Arrays.asList(fieldMessage)));
             }
-        }
+        });
         return errors;
     }
 }
