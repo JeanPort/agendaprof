@@ -1,5 +1,6 @@
 package com.jean.agendaprof.api.professores.services;
 
+import com.jean.agendaprof.api.professores.dtos.ProfessorRequest;
 import com.jean.agendaprof.api.professores.dtos.ProfessorResponse;
 import com.jean.agendaprof.api.professores.mappers.ProfessorMapper;
 import com.jean.agendaprof.core.exceptions.ModelNotFoundException;
@@ -27,5 +28,10 @@ public class ProfessorServiceImpl implements ProfessorService{
     public ProfessorResponse findById(Long id) {
         var professor = professorRepository.findById(id).orElseThrow(ProfessorNotFoundException::new);
         return professorMapper.toProfessorResponse(professor);
+    }
+
+    @Override
+    public ProfessorResponse insert(ProfessorRequest professorRequest) {
+        return null;
     }
 }
