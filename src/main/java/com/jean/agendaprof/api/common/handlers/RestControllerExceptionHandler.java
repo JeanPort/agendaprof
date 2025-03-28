@@ -5,6 +5,7 @@ import com.jean.agendaprof.api.common.dtos.ErrorResponse;
 import com.jean.agendaprof.api.common.dtos.ErrorValidationResponse;
 import com.jean.agendaprof.core.exceptions.EmailAlreadyInUseException;
 import com.jean.agendaprof.core.exceptions.ModelNotFoundException;
+import com.jean.agendaprof.core.exceptions.PasswordsDoNotMatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -46,6 +47,19 @@ public class RestControllerExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
 
+    @ExceptionHandler(PasswordsDoNotMatchException.class)
+    public ResponseEntity<ErrorResponse> handlePasswordsDoNotMatchException(PasswordsDoNotMatchException e){
+        var status = HttpStatus.BAD_REQUEST;
+        var error = ErrorResponse.builder()
+                .status(status.value())
+                .message(e.getLocalizedMessage())
+                .timestamp(LocalDateTime.now())
+                .error(status.getReasonPhrase())
+                .cause(e.getClass().getSimpleName())
+                .build();
+        return ResponseEntity.status(status).body(error);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorValidationResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
 
@@ -63,6 +77,7 @@ public class RestControllerExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
 
+
     private Map<String, List<String>> getErrors(List<FieldError> fieldErrors) {
         var errors = new HashMap<String, List<String>>();
         fieldErrors.forEach(fieldError -> {
@@ -77,4 +92,6 @@ public class RestControllerExceptionHandler {
         });
         return errors;
     }
+
+
 }

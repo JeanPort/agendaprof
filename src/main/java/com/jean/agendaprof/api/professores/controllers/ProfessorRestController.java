@@ -30,7 +30,7 @@ public class ProfessorRestController {
         return ResponseEntity.ok(res);
     }
 
-    @PutMapping(ApiRoutes.CADASTRO_PROFESSOR)
+    @PostMapping(ApiRoutes.CADASTRO_PROFESSOR)
     public ResponseEntity<ProfessorResponse> insert(@Valid @RequestBody ProfessorRequest professorRequest){
         var result = professorService.insert(professorRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
