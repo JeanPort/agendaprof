@@ -3,7 +3,9 @@ package com.jean.agendaprof.api.professores.services;
 import com.jean.agendaprof.api.professores.dtos.ProfessorRequest;
 import com.jean.agendaprof.api.professores.dtos.ProfessorResponse;
 import com.jean.agendaprof.api.professores.mappers.ProfessorMapper;
+import com.jean.agendaprof.core.exceptions.EmailAlreadyInUseException;
 import com.jean.agendaprof.core.exceptions.ModelNotFoundException;
+import com.jean.agendaprof.core.exceptions.PasswordsDoNotMatchException;
 import com.jean.agendaprof.core.exceptions.ProfessorNotFoundException;
 import com.jean.agendaprof.core.repositories.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,22 @@ public class ProfessorServiceImpl implements ProfessorService{
 
     @Override
     public ProfessorResponse insert(ProfessorRequest professorRequest) {
-        return null;
+        passwordIsEquals(professorRequest);
+        existsEmail(professorRequest);
+        var professor = professorMapper.toProfessor(professorRequest);
+        professor = professorRepository.save(professor);
+        return professorMapper.toProfessorResponse(professor);
+    }
+
+    private void existsEmail(ProfessorRequest professorRequest) {
+        if (professorRepository.existsByEmail(professorRequest.getEmail())){
+            throw new EmailAlreadyInUseException();
+        }
+    }
+
+    private void passwordIsEquals(ProfessorRequest professorRequest) {
+        if (!professorRequest.getPassword().equals(professorRequest.getPasswordConfirmation())){
+            throw new PasswordsDoNotMatchException();
+        }
     }
 }
