@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/agendaprof_db?useSSL=false&serverTimeZone=UTC
+    url: jdbc:mysql://localhost:3306/agendaprof_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimeZone=UTC
     username: root
     password: senha123
 
@@ -11,3 +11,15 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+com:
+  jean:
+    agendaprof:
+      core:
+        service:
+          token:
+            jjwt:
+              accessTokenSigingKey: dDEV.K*UZps|7+RH&r>}pgUcyP1LByk::9HrH(}lyK0")_t=_}>z;/rS=NO*|Wg
+              accessTokenExpirationInSeconds: 30
+              refreshTokenSigingKey: +12oWc%WTEfBHWE8W'^]0A5$a-VOlNtwOXH)XB`r4qF"Z1j't2B.!n"__mFq"6%
+              refreshTokenExpirationInSeconds: 60

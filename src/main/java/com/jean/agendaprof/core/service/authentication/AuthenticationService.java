@@ -1,6 +1,5 @@
-package com.jean.agendaprof.core.service;
+package com.jean.agendaprof.core.service.authentication;
 
-import com.jean.agendaprof.core.exceptions.ProfessorNotFoundException;
 import com.jean.agendaprof.core.models.AuthenticatedUser;
 import com.jean.agendaprof.core.repositories.ProfessorRepository;
 import lombok.RequiredArgsConstructor;

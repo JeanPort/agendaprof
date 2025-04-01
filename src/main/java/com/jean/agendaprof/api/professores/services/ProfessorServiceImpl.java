@@ -4,11 +4,11 @@ import com.jean.agendaprof.api.professores.dtos.ProfessorRequest;
 import com.jean.agendaprof.api.professores.dtos.ProfessorResponse;
 import com.jean.agendaprof.api.professores.mappers.ProfessorMapper;
 import com.jean.agendaprof.core.exceptions.EmailAlreadyInUseException;
-import com.jean.agendaprof.core.exceptions.ModelNotFoundException;
 import com.jean.agendaprof.core.exceptions.PasswordsDoNotMatchException;
 import com.jean.agendaprof.core.exceptions.ProfessorNotFoundException;
 import com.jean.agendaprof.core.repositories.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +19,7 @@ public class ProfessorServiceImpl implements ProfessorService{
 
     private final ProfessorRepository professorRepository;
     private final ProfessorMapper professorMapper;
+    private final PasswordEncoder encoder;
 
     @Override
     public List<ProfessorResponse> findAll(String q) {
@@ -37,6 +38,7 @@ public class ProfessorServiceImpl implements ProfessorService{
         passwordIsEquals(professorRequest);
         existsEmail(professorRequest);
         var professor = professorMapper.toProfessor(professorRequest);
+        professor.setSenha(encoder.encode(professor.getSenha()));
         professor = professorRepository.save(professor);
         return professorMapper.toProfessorResponse(professor);
     }
