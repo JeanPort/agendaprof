@@ -1,5 +1,6 @@
 package com.jean.agendaprof.config;
 
+import com.jean.agendaprof.api.common.filters.AccessTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final AccessTokenFilter tokenFilter;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,6 +32,7 @@ public class SecurityConfig {
                 .sessionManagement(customizer -> customizer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)// aqui só adiciona depois
                 .exceptionHandling(customizer -> customizer
                         .authenticationEntryPoint(authenticationEntryPoint)
                 );
