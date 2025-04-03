@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,12 @@ public class ProfessorRestController {
     public ResponseEntity<ProfessorResponse> insert(@Valid @RequestBody ProfessorRequest professorRequest){
         var result = professorService.insert(professorRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping(ApiRoutes.ATUALIZAR_PROFESSORES)
+    public ResponseEntity<ProfessorResponse> update(@RequestBody @Valid ProfessorRequest professorRequest){
+        var professor = professorService.update(professorRequest);
+        return ResponseEntity.ok(professor);
     }
 
 }

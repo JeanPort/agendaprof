@@ -8,4 +8,6 @@ public interface ProfessorMapper {
 
     ProfessorResponse toProfessorResponse(Professor professor);
     Professor toProfessor(ProfessorRequest professorRequest);
+    Professor toProfessorByProfessor(ProfessorRequest professorRequest, Professor professor);
+
 }

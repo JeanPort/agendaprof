@@ -10,4 +10,5 @@ public interface ProfessorService {
     List<ProfessorResponse> findAll(String q);
     ProfessorResponse findById(Long id);
     ProfessorResponse insert(ProfessorRequest professorRequest);
+    ProfessorResponse update(ProfessorRequest professorRequest);
 }

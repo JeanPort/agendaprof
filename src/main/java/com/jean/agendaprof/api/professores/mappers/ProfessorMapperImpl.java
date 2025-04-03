@@ -39,4 +39,19 @@ public class ProfessorMapperImpl implements ProfessorMapper{
                 .descricao(professorRequest.getDescricao())
                 .build();
     }
+
+    @Override
+    public Professor toProfessorByProfessor(ProfessorRequest professorRequest, Professor professor) {
+        if (professorRequest == null || professor == null) return null;
+
+        professor.setNome(professorRequest.getNome());
+        professor.setDescricao(professorRequest.getDescricao());
+        professor.setEmail(professorRequest.getEmail());
+        professor.setSenha(professorRequest.getPassword());
+        professor.setIdade(professorRequest.getIdade());
+        professor.setValorHora(professorRequest.getValorHora());
+        return professor;
+    }
+
+
 }

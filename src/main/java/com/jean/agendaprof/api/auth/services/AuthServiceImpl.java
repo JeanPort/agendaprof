@@ -39,9 +39,15 @@ public class AuthServiceImpl implements AuthService{
         if (!professorRepository.existsByEmail(subject)){
             throw new ProfessorNotFoundException();
         }
+        tokenService.invalidarTokens(refreshRequest.getRefreshToken());
         return LoginResponse.builder()
                 .token(tokenService.gerarAccessToken(subject))
                 .refreshToken(tokenService.gerarRefreshToken(subject))
                 .build();
+    }
+
+    @Override
+    public void logout(String token, RefreshRequest refreshRequest) {
+        tokenService.invalidarTokens(token, refreshRequest.getRefreshToken());
     }
 }

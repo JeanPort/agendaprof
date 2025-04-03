@@ -20,6 +20,6 @@ com:
           token:
             jjwt:
               accessTokenSigingKey: dDEV.K*UZps|7+RH&r>}pgUcyP1LByk::9HrH(}lyK0")_t=_}>z;/rS=NO*|Wg
-              accessTokenExpirationInSeconds: 30
+              accessTokenExpirationInSeconds: 60
               refreshTokenSigingKey: +12oWc%WTEfBHWE8W'^]0A5$a-VOlNtwOXH)XB`r4qF"Z1j't2B.!n"__mFq"6%
-              refreshTokenExpirationInSeconds: 60
+              refreshTokenExpirationInSeconds: 120

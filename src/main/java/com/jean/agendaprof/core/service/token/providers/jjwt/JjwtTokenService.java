@@ -1,5 +1,7 @@
 package com.jean.agendaprof.core.service.token.providers.jjwt;
 
+import com.jean.agendaprof.core.models.TokenInvalido;
+import com.jean.agendaprof.core.repositories.TokenInvalidoRepository;
 import com.jean.agendaprof.core.service.token.TokenService;
 import com.jean.agendaprof.core.service.token.TokenServiceException;
 import io.jsonwebtoken.Claims;
@@ -12,12 +14,14 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class JjwtTokenService implements TokenService {
 
     private final JjwtConfigProperties jjwtConfigProperties;
+    private final TokenInvalidoRepository tokenInvalidoRepository;
 
     @Override
     public String gerarAccessToken(String subject) {
@@ -42,7 +46,9 @@ public class JjwtTokenService implements TokenService {
 
     @Override
     public void invalidarTokens(String... tokens) {
-
+        var tokenInvalidos = Stream.of(tokens)
+                .map(s -> TokenInvalido.builder().token(s).build()).toList();
+        tokenInvalidoRepository.saveAll(tokenInvalidos);
     }
 
     private String gerarToken(String subject, Long expirationInSeconds, String sigingKey) {
@@ -68,6 +74,9 @@ public class JjwtTokenService implements TokenService {
     }
 
     private Claims tryGetClaims(String token, String sigingKey) {
+        if (tokenInvalidoRepository.existsByToken(token)){
+            throw new TokenServiceException("Token invalido");
+        }
         return Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(sigingKey.getBytes()))
                 .build()
